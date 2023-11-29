@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:table_calendar/table_calendar.dart';
 import '../../shared/images.dart';
 import '../../shared/colors.dart';
+import 'guests_list.dart';
+import 'food_list.dart';
+import '../../widgets/bottom_navigation_bar.dart';
 
 class TodoItem {
   final String description;
@@ -381,8 +384,8 @@ class _BrideHomePageState extends State<BrideHomePage> {
                         children: [
                           Image.asset(
                             success_image, // Replace with the actual path
-                            width: 170,
-                            height: 185,
+                            width: 180,
+                            height: 190,
                           ),
                           Text("لا توجد مهام لهذا اليوم")
                         ],
@@ -408,12 +411,48 @@ class _BrideHomePageState extends State<BrideHomePage> {
                   children: [
                     _buildButtonBox('قائمة الطعام', food_image, () {
                       // Handle the button click for 'List of Food'
+                      Navigator.push(
+                        context,
+                        PageRouteBuilder(
+                          pageBuilder:
+                              (context, animation, secondaryAnimation) =>
+                                  FoodListPage(),
+                          transitionsBuilder:
+                              (context, animation, secondaryAnimation, child) {
+                            return child; // No transition animation
+                          },
+                        ),
+                      );
                     }),
                     _buildButtonBox('قائمة الحضور', invitation_image, () {
                       // Handle the button click for 'List of Guests'
+                      Navigator.push(
+                        context,
+                        PageRouteBuilder(
+                          pageBuilder:
+                              (context, animation, secondaryAnimation) =>
+                                  GuestsPage(),
+                          transitionsBuilder:
+                              (context, animation, secondaryAnimation, child) {
+                            return child; // No transition animation
+                          },
+                        ),
+                      );
                     }),
                     _buildButtonBox('الميزانية ', rings_image, () {
                       // Handle the button click for 'Expense Tracker'
+                      Navigator.push(
+                        context,
+                        PageRouteBuilder(
+                          pageBuilder:
+                              (context, animation, secondaryAnimation) =>
+                                  GuestsPage(),
+                          transitionsBuilder:
+                              (context, animation, secondaryAnimation, child) {
+                            return child; // No transition animation
+                          },
+                        ),
+                      );
                     }),
                   ],
                 ),
@@ -424,39 +463,7 @@ class _BrideHomePageState extends State<BrideHomePage> {
         ],
       ),
       bottomNavigationBar: Container(
-        height: 70,
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.vertical(top: Radius.circular(10)),
-          boxShadow: [BoxShadow(color: dark_color, blurRadius: 5)],
-        ),
-        child: BottomAppBar(
-          color: white_color,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              IconButton(
-                icon: ImageIcon(AssetImage(home_icon)),
-                onPressed: () {},
-              ),
-              IconButton(
-                icon: ImageIcon(AssetImage(categories_outlined_icon)),
-                onPressed: () {},
-              ),
-              IconButton(
-                icon: ImageIcon(AssetImage(star_outlined_icon)),
-                onPressed: () {},
-              ),
-              IconButton(
-                icon: ImageIcon(AssetImage(heart_outlined_icon)),
-                onPressed: () {},
-              ),
-              IconButton(
-                icon: ImageIcon(AssetImage(profile_outlined_icon)),
-                onPressed: () {},
-              ),
-            ],
-          ),
-        ),
+        child: CustomBottomNavigationBar(),
       ),
     );
   }
